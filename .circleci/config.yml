@@ -23,19 +23,18 @@ jobs:
             curl -sSL "https://nodejs.org/dist/v12.4.0/node-v12.4.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.4.0-linux-x64/bin/node
             curl -o- -L https://yarnpkg.com/install.sh | bash
 
-      # Download and cache dependencies
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: yarn install
-
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
 
       - run: yarn build
       - run:
