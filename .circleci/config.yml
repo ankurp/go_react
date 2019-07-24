@@ -18,10 +18,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Update Node.js and npm"
+          name: "Update Node.js and yarn"
           command: |
             curl -sSL "https://nodejs.org/dist/v12.4.0/node-v12.4.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.4.0-linux-x64/bin/node
-            curl -o- -L https://yarnpkg.com/install.sh | bash
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            sudo apt-get update && sudo apt-get install yarn
 
       - restore_cache:
           name: Restore Yarn Package Cache
