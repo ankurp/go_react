@@ -24,6 +24,5 @@ require (
 	github.com/jackc/pgx v3.3.0+incompatible // indirect
 	github.com/markbates/grift v1.0.6
 	github.com/rs/cors v1.6.0
-	github.com/spf13/afero v1.2.1 // indirect
 	github.com/unrolled/secure v1.0.0
 )
