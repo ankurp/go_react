@@ -43,7 +43,7 @@ jobs:
           command: |
             wget https://github.com/gobuffalo/buffalo/releases/download/v0.14.6/buffalo_0.14.6_linux_amd64.tar.gz
             tar -xvzf buffalo_0.14.6_linux_amd64.tar.gz
-            buffalo build
+            ./buffalo build
       - run:
           name: "Run server"
           command: ./bin/go_react
