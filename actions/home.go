@@ -6,6 +6,6 @@ import "github.com/gobuffalo/buffalo"
 // a home page.
 func HomeHandler(c buffalo.Context) error {
 	return c.Render(200, r.JSON(map[string]string{
-		"message": "Welcome to React Buffalo App 🐃",
+		"message": "Welcome to React Buffalo App! 🐃",
 	}))
 }
