@@ -18,12 +18,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Update Node.js and yarn"
+          name: "Update Node.js and npm"
           command: |
             curl -sSL "https://nodejs.org/dist/v12.4.0/node-v12.4.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.4.0-linux-x64/bin/node
-            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-            sudo apt-get update && sudo apt-get install sudo apt-get -y apt-transport-https yarn
+            curl https://www.npmjs.com/install.sh | sudo bash
+            sudo npm install yarn -g
 
       - restore_cache:
           name: Restore Yarn Package Cache
@@ -31,7 +30,7 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: source ~/.bashrc && yarn install --frozen-lockfile
+          command: yarn install --frozen-lockfile
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
