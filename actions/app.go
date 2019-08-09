@@ -1,8 +1,6 @@
 package actions
 
 import (
-	"net/http"
-
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/envy"
 	forcessl "github.com/gobuffalo/mw-forcessl"
@@ -13,6 +11,7 @@ import (
 
 	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	contenttype "github.com/gobuffalo/mw-contenttype"
+	"github.com/gobuffalo/packr"
 	"github.com/gobuffalo/x/sessions"
 	"github.com/rs/cors"
 )
@@ -62,7 +61,8 @@ func App() *buffalo.App {
 
 		app.GET("/api", HomeHandler)
 
-		app.ServeFiles("/", http.Dir("./build"))
+		box := packr.NewBox("./build")
+		app.ServeFiles("/", box)
 	}
 
 	return app
