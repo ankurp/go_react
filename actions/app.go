@@ -61,7 +61,7 @@ func App() *buffalo.App {
 
 		app.GET("/api", HomeHandler)
 
-		box := packr.NewBox("./build")
+		box := packr.NewBox("../build")
 		app.ServeFiles("/", box)
 	}
 
